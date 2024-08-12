@@ -1,15 +1,15 @@
-services: 
+services:
   db:
     image: postgres:13
     restart: always
     container_name: coaster-auth-postgres
-    environment: 
+    environment:
       POSTGRES_USER: prisma
       POSTGRES_PASSWORD: prisma
       POSTGRES_DB: data
     ports:
       - '5432:5432'
-  web: 
+  web:
     image: node:20.9.0-alpine3.18
     container_name: coaster-auth-web
     environment:
@@ -25,5 +25,5 @@ services:
       - /app/.pnpm-store/
     working_dir: /app
     command: sh -c "npm i -g pnpm && pnpm install && pnpm run dev --host"
-    depends_on: 
+    depends_on:
       - db
