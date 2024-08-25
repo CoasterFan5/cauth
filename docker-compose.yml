@@ -14,7 +14,7 @@ services:
     container_name: coaster-auth-web
     environment:
       - CODESPACES
-      - ORIGIN=http://localhost:3000
+      - ORIGIN=http://localhost:5173
     ports:
       - '5173:5173'
     env_file:

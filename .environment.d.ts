@@ -1,9 +1,9 @@
 declare global {
-    namespace NodeJS {
-        interface ProcessEnv {
-            DBURL: string;
-        }
-    }
+	namespace NodeJS {
+		interface ProcessEnv {
+			DBURL: string;
+		}
+	}
 }
 
-export { }
+export {};
