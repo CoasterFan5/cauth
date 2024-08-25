@@ -1,11 +1,12 @@
 <script lang="ts">
-	export let size = '0.1rem';
+	export let size = '0.25rem';
 </script>
 
-<br style="padding: {size} 0;" />
+<div style="padding: {size} 0;" />
 
 <style lang="scss">
-	br {
+	div {
+		all: unset;
 		color: transparent;
 		margin: 0px;
 	}

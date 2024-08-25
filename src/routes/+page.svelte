@@ -11,6 +11,7 @@
 		<TextField label="Email" placeholder="Enter your email" />
 		<VSpacer />
 		<TextField label="Password" placeholder="Enter your password" hideContents={true} />
+		<VSpacer />
 		<Button />
 	</Card>
 </div>
