@@ -16,7 +16,7 @@
 				{ transform: 'scale(100%)', opacity: 0 }
 			],
 			{
-				duration: 1000,
+				duration: 500,
 				iterations: 1
 			}
 		);
@@ -63,6 +63,7 @@
 		left: 0px;
 		z-index: 1;
 		overflow: hidden;
+		cursor: pointer;
 	}
 
 	.value {
