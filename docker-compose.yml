@@ -24,6 +24,6 @@ services:
       - /app/node_modules
       - /app/.pnpm-store/
     working_dir: /app
-    command: sh -c "npm i -g pnpm && pnpm install && pnpm run dev --host"
+    command: sh -c "npm i -g pnpm && pnpm install && pnpm run migrate && pnpm run dev --host"
     depends_on:
       - db
