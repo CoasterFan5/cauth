@@ -8,14 +8,18 @@
 
 <div class="wrap">
 	<Card>
-		<h3>Welcome Back</h3>
-		<TextField label="Email" placeholder="Enter your email" />
+		<h3>Welcome!</h3>
+		<TextField label="Email" placeholder="Enter email" name="email" />
 		<VSpacer />
-		<TextField label="Password" placeholder="Enter your password" hideContents={true} />
+		<TextField label="Password" placeholder="Password" name="pass1" hideContents={true} />
 		<VSpacer />
-		<Button />
+		<TextField label="Confirm Password" placeholder="Password" name="pass2" hideContents={true} />
 		<VSpacer />
-		<span>No account? <Link href="/signup">Sign up!</Link></span>
+		<Button value="Create Account" />
+		<VSpacer />
+		<span>
+			Have an account? <Link href="/">Sign in!</Link>
+		</span>
 	</Card>
 </div>
 

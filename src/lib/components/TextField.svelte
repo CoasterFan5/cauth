@@ -2,11 +2,12 @@
 	export let label = 'text';
 	export let placeholder = 'placeholder';
 	export let hideContents = false;
+	export let name = '';
 </script>
 
 <label>
 	{label}
-	<input {placeholder} type={hideContents ? 'password' : ''} />
+	<input {name} {placeholder} type={hideContents ? 'password' : ''} />
 </label>
 
 <style lang="scss">
