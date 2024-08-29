@@ -1,6 +1,7 @@
 <script>
 	import Button from '$lib/components/Button.svelte';
 	import Card from '$lib/components/Card.svelte';
+	import Link from '$lib/components/Link.svelte';
 	import TextField from '$lib/components/TextField.svelte';
 	import VSpacer from '$lib/components/VSpacer.svelte';
 </script>
@@ -13,6 +14,8 @@
 		<TextField label="Password" placeholder="Enter your password" hideContents={true} />
 		<VSpacer />
 		<Button />
+		<VSpacer />
+		<span>No account? <Link>Sign up!</Link></span>
 	</Card>
 </div>
 
