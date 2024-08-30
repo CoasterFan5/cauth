@@ -5,6 +5,7 @@ import { db } from "$lib/server/db/db"
 import { emailVerificationTokens, user } from '$lib/server/db/schema.js';
 import { eq } from 'drizzle-orm';
 import crypto from "crypto";
+import { sendVerifyEmail } from '$lib/server/sendVerifyEmail.js';
 
 export const actions = {
     createAccount: actionHelper(z.object({
@@ -40,12 +41,9 @@ export const actions = {
         }).returning({ userId: user.id })
         const userId = userIds[0].userId
 
-        const emailVerificationTokenList = await db.insert(emailVerificationTokens).values({
-            token: crypto.randomBytes(32).toString("base64url"),
-            userId
-        }).returning({ token: emailVerificationTokens.token })
 
-        const emailToken = emailVerificationTokenList[0].token
+
+        await sendVerifyEmail(userId, email);
 
         //email logic
         return {
