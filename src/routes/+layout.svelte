@@ -1,11 +1,14 @@
 <script lang="ts">
 	import '@fontsource/geist-sans';
+	import { Toaster } from 'svelte-french-toast';
 </script>
 
 <title> C Auth </title>
 <div class="wrap">
 	<slot />
 </div>
+
+<Toaster />
 
 <style lang="scss">
 	:global(body) {
