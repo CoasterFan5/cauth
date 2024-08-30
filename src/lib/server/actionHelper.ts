@@ -13,10 +13,15 @@ export function actionHelper<Shape extends ZodRawShape, Z extends ZodObject<Shap
         const parsed = formSchema.strict().safeParse(obj);
 
         if (!parsed.success) {
+            let errorMessage = "Invalid Data"
+            //attempt to get the first error message
+            if (parsed.error.errors.length > 0) {
+                errorMessage = parsed.error.errors[0].message || "Invalid Data"
+            }
             console.error(parsed.error);
             return fail(400, {
                 success: false,
-                message: 'Invalid Data'
+                message: errorMessage
             });
         }
         return await runnable(parsed.data, event);
