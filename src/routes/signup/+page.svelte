@@ -19,18 +19,28 @@
 	use:enhance={() => {
 		const toastManager = createPromiseToast('Account created!');
 		return async ({ result, update }) => {
-			await update();
-			if (result.status != 200) {
-				toastManager.reject(form?.message);
+			if (result.type == 'success') {
+				toastManager.reject(`${result?.data?.message}` || 'success');
+				return;
+			} else if (result.type == 'failure') {
+				toastManager.reject(`${result?.data?.message}` || 'something went wrong');
+				return;
+			} else if (result.type == 'error') {
+				toastManager.reject(`Internal Error`);
 				return;
 			}
-			toastManager.resolve('Account created!');
+			await update();
+			return;
 		};
 	}}
 >
 	<Card>
 		<h3>Welcome!</h3>
-		<TextField label="Email" placeholder="Enter email" name="email" />
+		<TextField label="Email" placeholder="123@123.com" name="email" />
+		<VSpacer />
+		<TextField label="First Name" placeholder="John" name="firstName" />
+		<VSpacer />
+		<TextField label="Last Name" placeholder="Doe" name="lastName" />
 		<VSpacer />
 		<TextField label="Password" placeholder="Password" name="pass1" hideContents={true} />
 		<VSpacer />
