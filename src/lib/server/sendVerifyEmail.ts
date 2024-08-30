@@ -1,9 +1,9 @@
-import { emailVerificationTokens } from "$lib/server/db/schema"
+import { emailLogs, emailVerificationTokens } from "$lib/server/db/schema"
 import crypto from "crypto";
 import { db } from "$lib/server/db/db";
-import { resend } from "$lib/emails/resend";
+import { resend } from "$lib/server/emails/resend";
 import { RESEND_EMAIL, DOMAIN } from "$env/static/private";
-import { verifyEmail } from "$lib/emails/verifyEmail";
+import { verifyEmail } from "$lib/server/emails/verifyEmail";
 
 export const sendVerifyEmail = async (userId: number, email: string) => {
     const emailVerificationTokenList = await db.insert(emailVerificationTokens).values({
@@ -23,6 +23,11 @@ export const sendVerifyEmail = async (userId: number, email: string) => {
     if (error) {
         console.error("Failed to send email", error)
     }
+
+    db.insert(emailLogs).values({
+        userId,
+        email
+    })
 
     return { data, error }
 }

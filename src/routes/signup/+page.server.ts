@@ -1,5 +1,5 @@
 import { actionHelper } from '$lib/server/actionHelper.js';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { db } from "$lib/server/db/db"
 import { emailVerificationTokens, user } from '$lib/server/db/schema.js';
@@ -46,10 +46,7 @@ export const actions = {
         await sendVerifyEmail(userId, email);
 
         //email logic
-        return {
-            success: true,
-            message: "Account created. Please verify your email address.",
-        }
+        return redirect(303, "/verify-email")
 
     })
 

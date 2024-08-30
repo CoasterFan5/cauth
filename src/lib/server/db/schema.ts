@@ -18,3 +18,10 @@ export const emailVerificationTokens = schema.table('emailVerificationTokens', {
 	userId: integer("userId"),
 	created: timestamp("created").notNull().defaultNow()
 })
+
+export const emailLogs = schema.table("emailLogs", {
+	id: serial("id").primaryKey(),
+	userId: integer("userId"),
+	email: varchar("email", { length: 256 }),
+	sent: timestamp("sent").notNull().defaultNow()
+})

@@ -15,6 +15,13 @@
       "when": 1724948118476,
       "tag": "0001_dapper_pete_wisdom",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1725033750761,
+      "tag": "0002_thankful_loki",
+      "breakpoints": true
     }
   ]
 }
