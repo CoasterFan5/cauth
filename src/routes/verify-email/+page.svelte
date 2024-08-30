@@ -1,9 +1,26 @@
 <script>
+	import { enhance } from '$app/forms';
 	import Button from '$lib/components/Button.svelte';
 	import Card from '$lib/components/Card.svelte';
+	import {
+		createPromiseToast,
+		handleToastPromiseWithFormAction
+	} from '$lib/components/toastManager';
 </script>
 
-<form class="wrap" method="post" action="?/resendEmail">
+<form
+	class="wrap"
+	method="post"
+	action="?/resendEmail"
+	use:enhance={() => {
+		const toastActions = createPromiseToast('Sending Email!');
+		return async ({ result, update }) => {
+			handleToastPromiseWithFormAction(result, toastActions);
+			await update();
+			return;
+		};
+	}}
+>
 	<Card>
 		<h3>Almost there!</h3>
 		<p>

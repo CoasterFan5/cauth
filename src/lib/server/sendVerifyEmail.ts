@@ -24,7 +24,7 @@ export const sendVerifyEmail = async (userId: number, email: string) => {
         console.error("Failed to send email", error)
     }
 
-    db.insert(emailLogs).values({
+    await db.insert(emailLogs).values({
         userId,
         email
     })

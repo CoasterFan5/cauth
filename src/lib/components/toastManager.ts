@@ -39,4 +39,5 @@ export const handleToastPromiseWithFormAction = (formActionData: CustomFormActio
         default:
             break;
     }
+    return;
 }
