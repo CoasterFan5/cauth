@@ -22,6 +22,13 @@
       "when": 1725033750761,
       "tag": "0002_thankful_loki",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1725033973643,
+      "tag": "0003_mean_master_chief",
+      "breakpoints": true
     }
   ]
 }

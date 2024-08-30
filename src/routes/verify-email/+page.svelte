@@ -3,7 +3,7 @@
 	import Card from '$lib/components/Card.svelte';
 </script>
 
-<div class="wrap">
+<form class="wrap" method="post" action="?/resendEmail">
 	<Card>
 		<h3>Almost there!</h3>
 		<p>
@@ -12,7 +12,7 @@
 		</p>
 		<Button value="Resend Email" />
 	</Card>
-</div>
+</form>
 
 <style lang="scss">
 	.wrap {

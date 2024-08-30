@@ -12,6 +12,13 @@ export const user = schema.table('users', {
 	salt: varchar('salt', { length: 256 })
 });
 
+export const sessions = schema.table("sessions", {
+	id: serial("id").primaryKey(),
+	userId: integer("userId"),
+	sessionToken: varchar("sessionToken", { length: 256 }),
+	created: timestamp("created").notNull().defaultNow()
+})
+
 export const emailVerificationTokens = schema.table('emailVerificationTokens', {
 	id: serial('id').primaryKey(),
 	token: varchar('token', { length: 256 }),
