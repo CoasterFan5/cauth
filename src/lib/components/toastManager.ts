@@ -1,3 +1,4 @@
+import type { ActionResult } from "@sveltejs/kit";
 import toast from "svelte-french-toast";
 
 export const createPromiseToast = (loadingMessage: string) => {
@@ -19,5 +20,23 @@ export const createPromiseToast = (loadingMessage: string) => {
     return {
         resolve: toastPromiseResolve,
         reject: toastPromiseReject
+    }
+}
+
+type CustomFormActionData = ActionResult<Record<string, unknown> | undefined, Record<string, unknown> | undefined>
+type PromiseToastActions = ReturnType<typeof createPromiseToast>
+export const handleToastPromiseWithFormAction = (formActionData: CustomFormActionData, toastActions: PromiseToastActions) => {
+    switch (formActionData.type) {
+        case "success":
+            toastActions.resolve(`${formActionData.data?.message}`);
+            break;
+        case "failure":
+            toastActions.reject(`${formActionData.data?.message}`);
+            break;
+        case "error":
+            toastActions.reject(`${formActionData.error?.message}`);
+            break;
+        default:
+            break;
     }
 }

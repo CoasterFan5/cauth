@@ -4,7 +4,10 @@
 	import Card from '$lib/components/Card.svelte';
 	import Link from '$lib/components/Link.svelte';
 	import TextField from '$lib/components/TextField.svelte';
-	import { createPromiseToast } from '$lib/components/toastManager';
+	import {
+		createPromiseToast,
+		handleToastPromiseWithFormAction
+	} from '$lib/components/toastManager';
 	import VSpacer from '$lib/components/VSpacer.svelte';
 	import type { ActionData } from './$types';
 
@@ -19,16 +22,7 @@
 	use:enhance={() => {
 		const toastManager = createPromiseToast('Account created!');
 		return async ({ result, update }) => {
-			if (result.type == 'success') {
-				toastManager.reject(`${result?.data?.message}` || 'success');
-				return;
-			} else if (result.type == 'failure') {
-				toastManager.reject(`${result?.data?.message}` || 'something went wrong');
-				return;
-			} else if (result.type == 'error') {
-				toastManager.reject(`Internal Error`);
-				return;
-			}
+			handleToastPromiseWithFormAction(result, toastManager);
 			await update();
 			return;
 		};
