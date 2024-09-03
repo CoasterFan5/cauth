@@ -18,7 +18,10 @@
 	use:enhance={() => {
 		const toastManager = createPromiseToast('Logging in...');
 		return async ({ update, result }) => {
-			handleToastPromiseWithFormAction(result, toastManager);
+			handleToastPromiseWithFormAction(result, toastManager, {
+				redirectsAreSuccess: true,
+				redirectMessage: 'Logged in!'
+			});
 			await update();
 		};
 	}}

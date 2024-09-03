@@ -25,7 +25,11 @@ export const createPromiseToast = (loadingMessage: string) => {
 
 type CustomFormActionData = ActionResult<Record<string, unknown> | undefined, Record<string, unknown> | undefined>
 type PromiseToastActions = ReturnType<typeof createPromiseToast>
-export const handleToastPromiseWithFormAction = (formActionData: CustomFormActionData, toastActions: PromiseToastActions) => {
+export const handleToastPromiseWithFormAction = (formActionData: CustomFormActionData, toastActions: PromiseToastActions, options?: {
+    redirectsAreSuccess?: boolean
+    redirectsAreFailure?: boolean
+    redirectMessage?: string
+}) => {
     switch (formActionData.type) {
         case "success":
             toastActions.resolve(`${formActionData.data?.message}`);
@@ -35,6 +39,14 @@ export const handleToastPromiseWithFormAction = (formActionData: CustomFormActio
             break;
         case "error":
             toastActions.reject(`${formActionData.error?.message}`);
+            break;
+        case "redirect":
+            if (options?.redirectsAreSuccess) {
+                toastActions.resolve(options.redirectMessage);
+            }
+            if (options?.redirectsAreFailure) {
+                toastActions.reject(options.redirectMessage);
+            }
             break;
         default:
             break;

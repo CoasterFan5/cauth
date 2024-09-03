@@ -22,7 +22,10 @@
 	use:enhance={() => {
 		const toastManager = createPromiseToast('Creating Account...');
 		return async ({ result, update }) => {
-			handleToastPromiseWithFormAction(result, toastManager);
+			handleToastPromiseWithFormAction(result, toastManager, {
+				redirectsAreSuccess: true,
+				redirectMessage: 'Account Created!'
+			});
 			await update();
 			return;
 		};
