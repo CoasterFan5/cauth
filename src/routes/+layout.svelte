@@ -16,6 +16,9 @@
 		--text: rgb(11, 11, 14);
 		--background: rgb(249, 249, 251);
 		--primary: rgb(64, 56, 208);
+		--primary50: rgb(64, 56, 208, 0.5);
+		--primary25: rgb(64, 56, 208, 0.25);
+		--primary10: rgb(64, 56, 208, 0.1);
 		--secondary: rgb(145, 145, 237);
 		--accent: rgb(85, 85, 245);
 		margin: 0px;
