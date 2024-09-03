@@ -7,6 +7,7 @@ import { eq } from 'drizzle-orm';
 import crypto from "crypto";
 import { sendVerifyEmail } from '$lib/server/sendVerifyEmail.js';
 import { createSession } from '$lib/server/createSession.js';
+import { createPassword } from '$lib/server/createPassword.js';
 
 export const actions = {
     createAccount: actionHelper(z.object({
@@ -22,18 +23,19 @@ export const actions = {
             });
         }
 
-        const usersWithEmail = await db.select().from(user).where(eq(user.email, email))
+        const lowerEmail = email.toLowerCase();
+
+        const usersWithEmail = await db.select().from(user).where(eq(user.email, lowerEmail))
         if (usersWithEmail.length > 0) {
             return fail(400, {
                 message: "Email already in use"
             });
         }
 
-        const salt = crypto.randomBytes(32).toString("base64url");
-        const hash = crypto.pbkdf2Sync(pass1, salt, 1000, 64, "sha512").toString("base64url");
+        const { salt, hash } = await createPassword(pass1);
 
         const userIds = await db.insert(user).values({
-            email,
+            email: lowerEmail,
             firstName,
             lastName,
             hash,
@@ -45,7 +47,6 @@ export const actions = {
         await createSession(userId, cookies);
         await sendVerifyEmail(userId, email);
 
-        //email logic
         return redirect(303, "/verify-email")
 
     })

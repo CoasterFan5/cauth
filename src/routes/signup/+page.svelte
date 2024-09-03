@@ -20,7 +20,7 @@
 	method="post"
 	action="?/createAccount"
 	use:enhance={() => {
-		const toastManager = createPromiseToast('Account created!');
+		const toastManager = createPromiseToast('Creating Account...');
 		return async ({ result, update }) => {
 			handleToastPromiseWithFormAction(result, toastManager);
 			await update();
