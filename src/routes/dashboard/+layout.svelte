@@ -1,6 +1,8 @@
 <script lang="ts">
 	import HomeIcon from '~icons/ph/house-duotone';
 	import { page } from '$app/stores';
+	import { fly } from 'svelte/transition';
+	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 	const sidebarRoutes = [
 		{
 			text: 'Home',
@@ -26,8 +28,31 @@
 			</a>
 		{/each}
 	</nav>
+
 	<div class="content">
-		<slot />
+		{#key $page.url.pathname}
+			<div
+				class="contentInner"
+				in:fly={{
+					x: 0,
+					y: -100,
+					opacity: 0,
+					delay: 0,
+					duration: 300,
+					easing: quadIn
+				}}
+				out:fly={{
+					x: 0,
+					y: 100,
+					opacity: 0,
+					delay: 0,
+					duration: 300,
+					easing: quadOut
+				}}
+			>
+				<slot />
+			</div>
+		{/key}
 	</div>
 </div>
 
@@ -127,5 +152,23 @@
 				background-position: -100%;
 			}
 		}
+	}
+
+	.content {
+		width: 100%;
+		height: 100vh;
+		position: relative;
+		overflow-y: hidden;
+	}
+	.contentInner {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow-y: auto;
 	}
 </style>
