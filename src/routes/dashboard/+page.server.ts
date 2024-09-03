@@ -1,18 +1,17 @@
-import { verifySession } from '$lib/server/verifySession.js'
+import { verifySession } from '$lib/server/verifySession.js';
 import { redirect } from '@sveltejs/kit';
 
-
 export const load = async ({ cookies }) => {
-    const user = await verifySession(cookies.get("session"));
-    if (!user) {
-        throw redirect(303, "/");
-    }
+	const user = await verifySession(cookies.get('session'));
+	if (!user) {
+		throw redirect(303, '/');
+	}
 
-    if (!user.verifiedEmail) {
-        throw redirect(303, "/verify-email");
-    }
+	if (!user.verifiedEmail) {
+		throw redirect(303, '/verify-email');
+	}
 
-    return {
-        user
-    }
-}
+	return {
+		user
+	};
+};

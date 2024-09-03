@@ -1,4 +1,4 @@
-import { boolean, integer, pgSchema, pgTable, serial, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { boolean, integer, pgSchema, serial, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 export const schema = pgSchema('databaseSchema');
 
@@ -12,23 +12,23 @@ export const user = schema.table('users', {
 	salt: varchar('salt', { length: 256 })
 });
 
-export const sessions = schema.table("sessions", {
-	id: serial("id").primaryKey(),
-	userId: integer("userId"),
-	sessionToken: varchar("sessionToken", { length: 256 }),
-	created: timestamp("created").notNull().defaultNow()
-})
+export const sessions = schema.table('sessions', {
+	id: serial('id').primaryKey(),
+	userId: integer('userId'),
+	sessionToken: varchar('sessionToken', { length: 256 }),
+	created: timestamp('created').notNull().defaultNow()
+});
 
 export const emailVerificationTokens = schema.table('emailVerificationTokens', {
 	id: serial('id').primaryKey(),
 	token: varchar('token', { length: 256 }),
-	userId: integer("userId"),
-	created: timestamp("created").notNull().defaultNow()
-})
+	userId: integer('userId'),
+	created: timestamp('created').notNull().defaultNow()
+});
 
-export const emailLogs = schema.table("emailLogs", {
-	id: serial("id").primaryKey(),
-	userId: integer("userId"),
-	email: varchar("email", { length: 256 }),
-	sent: timestamp("sent").notNull().defaultNow()
-})
+export const emailLogs = schema.table('emailLogs', {
+	id: serial('id').primaryKey(),
+	userId: integer('userId'),
+	email: varchar('email', { length: 256 }),
+	sent: timestamp('sent').notNull().defaultNow()
+});

@@ -1,5 +1,5 @@
 export const verifyEmail = (emailURL: string) => {
-    return `<div
+	return `<div
   style="
     width: 100%;
     height: 100%;
@@ -48,5 +48,5 @@ export const verifyEmail = (emailURL: string) => {
     >
   </div>
 </div>
-`
-}
+`;
+};
