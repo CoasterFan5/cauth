@@ -147,6 +147,15 @@
 
 		&.active {
 			background-position: -100%;
+			color: var(--primary);
+
+			.icon {
+				opacity: 1;
+			}
+
+			.text {
+				opacity: 1;
+			}
 
 			&::before {
 				background-position: -100%;
