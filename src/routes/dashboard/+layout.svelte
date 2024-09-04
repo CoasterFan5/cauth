@@ -1,7 +1,7 @@
 <script lang="ts">
 	import HomeIcon from '~icons/ph/house-duotone';
 	import { page } from '$app/stores';
-	import { fly } from 'svelte/transition';
+	import { fade, fly } from 'svelte/transition';
 	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 	const sidebarRoutes = [
 		{
@@ -33,21 +33,10 @@
 		{#key $page.url.pathname}
 			<div
 				class="contentInner"
-				in:fly={{
-					x: 0,
-					y: -100,
-					opacity: 0,
+				in:fade={{
 					delay: 0,
-					duration: 300,
-					easing: quadIn
-				}}
-				out:fly={{
-					x: 0,
-					y: 100,
-					opacity: 0,
-					delay: 0,
-					duration: 300,
-					easing: quadOut
+					duration: 250,
+					easing: quadInOut
 				}}
 			>
 				<slot />
