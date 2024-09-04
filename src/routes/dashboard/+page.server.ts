@@ -12,6 +12,12 @@ export const load = async ({ cookies }) => {
 	}
 
 	return {
-		user
+		user: {
+			id: user.id,
+			firstName: user.firstName,
+			lastName: user.lastName,
+			email: user.email,
+			verifiedEmail: user.verifiedEmail
+		}
 	};
 };
