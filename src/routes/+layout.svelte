@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '@fontsource/geist-sans';
+	import '@fontsource/ibm-plex-mono';
 	import { Toaster } from 'svelte-french-toast';
 </script>
 

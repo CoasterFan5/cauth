@@ -1,0 +1,1 @@
+ALTER TABLE "databaseSchema"."users" ADD COLUMN "totpLock" boolean DEFAULT false;

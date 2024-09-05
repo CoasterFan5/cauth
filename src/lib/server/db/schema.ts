@@ -11,6 +11,7 @@ export const users = schema.table('users', {
 	hash: varchar('hash', { length: 256 }),
 	salt: varchar('salt', { length: 256 }),
 	totpSecret: varchar('totpSecret', { length: 256 }),
+	totpLock: boolean('totpLock').default(false),
 });
 
 export const sessions = schema.table('sessions', {

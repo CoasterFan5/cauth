@@ -3,7 +3,85 @@
 	import SecurityKeyIcon from '~icons/ph/key-duotone';
 	import AuthneticatorApp from '~icons/ph/number-square-zero-duotone';
 	import ArrowIcon from '~icons/ph/arrow-right-light';
+	import { createPromiseToast } from '$lib/components/toastManager';
+	import Modal from '$lib/components/Modal.svelte';
+	import ModalInner from '$lib/components/ModalInner.svelte';
+	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	import VSpacer from '$lib/components/VSpacer.svelte';
+	import Button from '$lib/components/Button.svelte';
+	import PinInput from '$lib/components/PinInput.svelte';
+
+	let twoFAQrUrl = '';
+	let twoFaSecret = '';
+	let showFAQrModal = false;
+	let showFinishMFA = false;
+
+	let confirm2fapin = '';
+
+	const setup2FA = async () => {
+		const toastManager = createPromiseToast('Preparing...');
+		const fetchRequest = await fetch('/dashboard/security/2fa/setup');
+		const response = await fetchRequest.json();
+		if (fetchRequest.status == 200) {
+			toastManager.resolve('QR Code Ready');
+			twoFAQrUrl = response.imageData;
+			twoFaSecret = response.secret;
+			showFAQrModal = true;
+		} else {
+			toastManager.reject(response.error || "Couldn't setup 2FA");
+		}
+	};
+
+	const finalize2FA = async () => {
+		const toastManager = createPromiseToast('Finishing...');
+		const fetchRequest = await fetch('/dashboard/security/2fa/setup', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ code: confirm2fapin })
+		});
+		const response = await fetchRequest.json();
+		if (fetchRequest.status == 200) {
+			toastManager.resolve('2FA Setup');
+			showFAQrModal = false;
+		} else {
+			toastManager.reject(response.error || "Couldn't finalize 2FA");
+		}
+	};
+
+	const showFinishMFAModal = () => {
+		showFAQrModal = false;
+		showFinishMFA = true;
+	};
 </script>
+
+<Modal bind:visible={showFAQrModal}>
+	<ModalInner>
+		<h3>Setup MFA</h3>
+		<p class="centerText">Scan this qr code in your authenticator app.</p>
+
+		<img src={twoFAQrUrl} alt="Scanable QR Code" />
+		<VSpacer />
+		<span>or, copy this code:</span>
+		<VSpacer />
+		<CodeBlock copyText={twoFaSecret}>{twoFaSecret}</CodeBlock>
+		<VSpacer />
+		<Button on:click={showFinishMFAModal} value="Next" />
+	</ModalInner>
+</Modal>
+
+<Modal bind:visible={showFinishMFA}>
+	<ModalInner>
+		<h3>Finish MFA</h3>
+		<p class="centerText">Enter the code from your authenticator app to finish setting up 2FA.</p>
+		<VSpacer />
+		<PinInput bind:value={confirm2fapin} />
+		<VSpacer />
+		<VSpacer />
+		<Button value="Finish" on:click={finalize2FA} />
+	</ModalInner>
+</Modal>
 
 <div class="fabox">
 	<h3>2 Factor Authentication</h3>
@@ -32,7 +110,7 @@
 					</div>
 					<h5>Authenticator</h5>
 				</div>
-				<IconButton>
+				<IconButton on:click={setup2FA}>
 					<ArrowIcon />
 				</IconButton>
 			</div>
@@ -121,5 +199,9 @@
 			background: var(--primary10);
 			color: var(--primary);
 		}
+	}
+
+	.centerText {
+		text-align: center;
 	}
 </style>

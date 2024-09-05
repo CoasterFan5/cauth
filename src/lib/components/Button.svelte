@@ -23,7 +23,7 @@
 	};
 </script>
 
-<button on:click={clickHandle}>
+<button on:click on:click={clickHandle}>
 	<span class="value">
 		{value}
 	</span>
