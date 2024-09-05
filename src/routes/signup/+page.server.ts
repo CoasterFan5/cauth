@@ -2,7 +2,7 @@ import { actionHelper } from '$lib/server/actionHelper.js';
 import { fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { db } from '$lib/server/db/db';
-import { user } from '$lib/server/db/schema.js';
+import { users } from '$lib/server/db/schema.js';
 import { eq } from 'drizzle-orm';
 import { sendVerifyEmail } from '$lib/server/sendVerifyEmail.js';
 import { createSession } from '$lib/server/createSession.js';
@@ -26,7 +26,7 @@ export const actions = {
 
 			const lowerEmail = email.toLowerCase();
 
-			const usersWithEmail = await db.select().from(user).where(eq(user.email, lowerEmail));
+			const usersWithEmail = await db.select().from(users).where(eq(users.email, lowerEmail));
 			if (usersWithEmail.length > 0) {
 				return fail(400, {
 					message: 'Email already in use'
@@ -36,7 +36,7 @@ export const actions = {
 			const { salt, hash } = await createPassword(pass1);
 
 			const userIds = await db
-				.insert(user)
+				.insert(users)
 				.values({
 					email: lowerEmail,
 					firstName,
@@ -45,7 +45,7 @@ export const actions = {
 					salt,
 					verifiedEmail: false
 				})
-				.returning({ userId: user.id });
+				.returning({ userId: users.id });
 			const userId = userIds[0].userId;
 
 			await createSession(userId, cookies);

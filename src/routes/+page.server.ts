@@ -1,7 +1,7 @@
 import { actionHelper } from '$lib/server/actionHelper.js';
 import { z } from 'zod';
 import { db } from '$lib/server/db/db';
-import { user } from '$lib/server/db/schema.js';
+import { users } from '$lib/server/db/schema.js';
 import { eq } from 'drizzle-orm';
 import { fail, redirect } from '@sveltejs/kit';
 import { createPassword } from '$lib/server/createPassword.js';
@@ -16,7 +16,7 @@ export const actions = {
 		async ({ email, password }, { cookies }) => {
 			const lowerEmail = email.toLowerCase();
 
-			const userList = await db.select().from(user).where(eq(user.email, lowerEmail));
+			const userList = await db.select().from(users).where(eq(users.email, lowerEmail));
 			if (userList.length < 1) {
 				return fail(401, {
 					message: 'Invalid email or password'

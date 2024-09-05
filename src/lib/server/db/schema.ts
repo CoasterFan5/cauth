@@ -2,14 +2,15 @@ import { boolean, integer, pgSchema, serial, timestamp, varchar } from 'drizzle-
 
 export const schema = pgSchema('databaseSchema');
 
-export const user = schema.table('users', {
+export const users = schema.table('users', {
 	id: serial('id').primaryKey(),
 	email: varchar('email', { length: 256 }).unique(),
 	verifiedEmail: boolean('verifiedEmail'),
 	firstName: varchar('firstName', { length: 256 }),
 	lastName: varchar('lastName', { length: 256 }),
 	hash: varchar('hash', { length: 256 }),
-	salt: varchar('salt', { length: 256 })
+	salt: varchar('salt', { length: 256 }),
+	totpSecret: varchar('totpSecret', { length: 256 }),
 });
 
 export const sessions = schema.table('sessions', {

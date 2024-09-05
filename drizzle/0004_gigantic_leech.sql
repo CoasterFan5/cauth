@@ -1,0 +1,1 @@
+ALTER TABLE "databaseSchema"."users" ADD COLUMN "totpSecret" varchar(256);

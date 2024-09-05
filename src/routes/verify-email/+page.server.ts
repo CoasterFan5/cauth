@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db/db.js';
-import { emailLogs, sessions, user } from '$lib/server/db/schema.js';
+import { emailLogs, sessions, users } from '$lib/server/db/schema.js';
 import { sendVerifyEmail } from '$lib/server/sendVerifyEmail.js';
 import { fail } from '@sveltejs/kit';
 import { and, count, eq, gte } from 'drizzle-orm';
@@ -18,8 +18,8 @@ export const actions = {
 		}
 		const userRow = await db
 			.select()
-			.from(user)
-			.leftJoin(sessions, eq(user.id, sessions.userId))
+			.from(users)
+			.leftJoin(sessions, eq(users.id, sessions.userId))
 			.where(eq(sessions.sessionToken, sessionToken));
 
 		if (userRow.length === 0) {

@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
 import { db } from './db/db';
-import { sessions, user } from './db/schema';
+import { sessions, users } from './db/schema';
 
 export const verifySession = async (session: string | undefined) => {
 	if (!session) {
@@ -10,8 +10,8 @@ export const verifySession = async (session: string | undefined) => {
 	// Verify the session
 	const userList = await db
 		.select()
-		.from(user)
-		.leftJoin(sessions, eq(user.id, sessions.userId))
+		.from(users)
+		.leftJoin(sessions, eq(users.id, sessions.userId))
 		.where(eq(sessions.sessionToken, session));
 	if (userList.length === 0) {
 		return undefined;
