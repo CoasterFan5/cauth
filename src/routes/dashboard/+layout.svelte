@@ -1,8 +1,8 @@
 <script lang="ts">
 	import HomeIcon from '~icons/ph/house-duotone';
 	import { page } from '$app/stores';
-	import { fade, fly } from 'svelte/transition';
-	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
+	import { fade } from 'svelte/transition';
+	import { quadInOut } from 'svelte/easing';
 	const sidebarRoutes = [
 		{
 			text: 'Home',

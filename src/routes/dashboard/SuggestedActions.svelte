@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Button from '$lib/components/Button.svelte';
 	import IconButton from '$lib/components/IconButton.svelte';
 	import ArrowRight from '~icons/ph/arrow-right-light';
 	import ShieldIcon from '~icons/ph/shield-duotone';
