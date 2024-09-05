@@ -134,19 +134,5 @@
 			background: var(--primary10);
 			color: var(--primary);
 		}
-
-		.text {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: center;
-			gap: 1rem;
-
-			p {
-				margin: 0;
-				font-size: 1rem;
-				font-weight: 400;
-			}
-		}
 	}
 </style>
