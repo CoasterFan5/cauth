@@ -4,12 +4,17 @@
 	import ShieldIcon from '~icons/ph/shield-duotone';
 	import ImageIcon from '~icons/ph/image-duotone';
 
+	export let user: {
+		totpLock: boolean | null;
+	};
+
 	const actionList = [
 		{
 			title: 'Enable 2FA',
 			description: 'Protect your account with an extra layer of security.',
 			icon: ShieldIcon,
-			actionRoute: '/dashboard/security'
+			actionRoute: '/dashboard/security',
+			disabled: user.totpLock
 		},
 		{
 			title: 'Review Logs',
@@ -30,7 +35,7 @@
 	<h3>Suggested Actions</h3>
 	<div class="actionList">
 		{#each actionList as action}
-			<div class="action">
+			<div class="action" class:completed={action.disabled}>
 				<div class="icon">
 					<svelte:component this={action.icon} height="100%" width="100%" />
 				</div>
@@ -49,6 +54,14 @@
 </div>
 
 <style lang="scss">
+	.completed {
+		opacity: 0.5;
+		--primary: var(--success);
+		--primary10: var(--success10);
+		--primary25: var(--success25);
+		--primary50: var(--success50);
+	}
+
 	.suggestedActions {
 		padding: 1rem;
 		border-radius: 0.25rem;

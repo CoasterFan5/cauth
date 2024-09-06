@@ -7,6 +7,6 @@
 <div>
 	<h2>Hello, {data.user.firstName}</h2>
 	<div class="content">
-		<SuggestedActions />
+		<SuggestedActions user={data.user} />
 	</div>
 </div>

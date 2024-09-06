@@ -1,10 +1,12 @@
 <script lang="ts">
 	import MfaBox from './MFABox.svelte';
+
+	export let data;
 </script>
 
 <div class="wrap">
 	<h2>Security</h2>
-	<MfaBox />
+	<MfaBox user={data.user} />
 </div>
 
 <style lang="scss">

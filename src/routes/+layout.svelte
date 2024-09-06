@@ -20,6 +20,12 @@
 		--primary50: rgb(64, 56, 208, 0.5);
 		--primary25: rgb(64, 56, 208, 0.25);
 		--primary10: rgb(64, 56, 208, 0.1);
+
+		--success: rgb(34, 120, 29);
+		--success50: rgb(34, 120, 29, 0.5);
+		--success25: rgb(34, 120, 29, 0.25);
+		--success10: rgb(34, 120, 29, 0.1);
+
 		--secondary: rgb(145, 145, 237);
 		--accent: rgb(85, 85, 245);
 		margin: 0px;

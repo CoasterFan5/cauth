@@ -10,6 +10,7 @@
 	import VSpacer from '$lib/components/VSpacer.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import PinInput from '$lib/components/PinInput.svelte';
+	import { invalidateAll } from '$app/navigation';
 
 	let twoFAQrUrl = '';
 	let twoFaSecret = '';
@@ -44,7 +45,9 @@
 		const response = await fetchRequest.json();
 		if (fetchRequest.status == 200) {
 			toastManager.resolve('2FA Setup');
+			showFinishMFA = false;
 			showFAQrModal = false;
+			invalidateAll();
 		} else {
 			toastManager.reject(response.error || "Couldn't finalize 2FA");
 		}
@@ -53,6 +56,10 @@
 	const showFinishMFAModal = () => {
 		showFAQrModal = false;
 		showFinishMFA = true;
+	};
+
+	export let user: {
+		totpLock: boolean | null;
 	};
 </script>
 
@@ -89,6 +96,19 @@
 	<div class="faList">
 		<div class="faDisplay">
 			<h4>Current Methods</h4>
+			{#if user.totpLock}
+				<div class="faOption">
+					<div class="left">
+						<div class="icon">
+							<AuthneticatorApp />
+						</div>
+						<h5>Authenticator</h5>
+					</div>
+					<IconButton on:click={setup2FA}>
+						<ArrowIcon />
+					</IconButton>
+				</div>
+			{/if}
 		</div>
 		<div class="faDisplay">
 			<h4>Possible Methods</h4>
@@ -103,17 +123,19 @@
 					<ArrowIcon />
 				</IconButton>
 			</div>
-			<div class="faOption">
-				<div class="left">
-					<div class="icon">
-						<AuthneticatorApp />
+			{#if !user.totpLock}
+				<div class="faOption">
+					<div class="left">
+						<div class="icon">
+							<AuthneticatorApp />
+						</div>
+						<h5>Authenticator</h5>
 					</div>
-					<h5>Authenticator</h5>
+					<IconButton on:click={setup2FA}>
+						<ArrowIcon />
+					</IconButton>
 				</div>
-				<IconButton on:click={setup2FA}>
-					<ArrowIcon />
-				</IconButton>
-			</div>
+			{/if}
 		</div>
 	</div>
 </div>

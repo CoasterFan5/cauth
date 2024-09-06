@@ -17,7 +17,8 @@ export const load = async ({ cookies }) => {
 			firstName: user.firstName,
 			lastName: user.lastName,
 			email: user.email,
-			verifiedEmail: user.verifiedEmail
+			verifiedEmail: user.verifiedEmail,
+			totpLock: user.totpLock
 		}
 	};
 };
